@@ -14,14 +14,16 @@ class Harry:
         pygame.draw.circle(screen,self.color,(250,250),self.radius)
 
 
-circle1= Harry('green',30)
+
+circle1= Harry('green',(200,200),50)
 
 while running: 
-
     pygame.draw.circle(screen,'blue',(250,250),50)
     circle1.drawcircle()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-            break
+        
+        break
+    
     pygame.display.update()        

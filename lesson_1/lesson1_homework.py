@@ -22,8 +22,9 @@ class John:
 
 
     def growshape(self):
-        self.width+=500
-        self.height+=500
+        self.width+=10
+        self.height+=10
+        self.dimensions= (self.x , self.y, self.width, self.height)
 
 
 
