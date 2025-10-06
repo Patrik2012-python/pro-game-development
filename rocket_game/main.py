@@ -25,16 +25,31 @@ while running:
                 KEYS[0]= True
             elif event.key == pygame.K_LEFT:
                  KEYS[1] = True
+            elif event.key == pygame.K_RIGHT:
+                 KEYS[2] = True
+            elif event.key == pygame.K_DOWN:
+                 KEYS[3] = True
+
         
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
                 KEYS[0] = False
+            if event.key == pygame.K_LEFT:
+                KEYS[1] =  False
+            if event.key == pygame.K_RIGHT:
+                KEYS[2] =  False
+            if event.key == pygame.K_DOWN:
+                KEYS[3] =  False
 
 
     if KEYS[0]:
         y-=1
     if KEYS[1]:
         x-=1
+    if KEYS[2]:
+        x+=1
+    if KEYS[3]:
+        y+=1
     
 
 
