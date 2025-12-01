@@ -1,8 +1,10 @@
 import pygame
 
 pygame.init()
+pygame.font.init()
 
 screen = pygame.display.set_mode((800,600))
+comic_sans=pygame.font.SysFont('Comic Sans',40)
 
 class Spaceship:
     def __init__(self, imageurl, angle, pos, color):
@@ -12,6 +14,8 @@ class Spaceship:
         self.rect   = self.image.get_rect(center = pos)
         self.bullets= []
         self.color = color
+        self.health =10
+        self.health_text= comic_sans.render(f'Health:{self.health}',1,self.color)
     
     def fire(self,direction):
         for bullet in self.bullets:
@@ -21,7 +25,9 @@ class Spaceship:
     def detect_collision(self, enemy_ship):
         for bullet in self.bullets:   
             if bullet.rect.colliderect(enemy_ship.rect):
-                self.bullets.remove(bullet)    
+                self.bullets.remove(bullet)  
+                enemy_ship.health-=1
+                self.health_text= comic_sans.render(f'Health:{enemy_ship.health}',1,enemy_ship.color)
 
     def movement(self):
         keys = pygame.key.get_pressed() 
@@ -36,6 +42,7 @@ class Spaceship:
                 self.rect.y-=1
             if keys[pygame.K_DOWN]:
                 self.rect.y+=1
+    
 
 
                                                                                                                                               
@@ -66,6 +73,9 @@ while running:
     screen.blit(bg, (0,0))
     screen.blit(red_ship.image,red_ship.rect.topleft)
     screen.blit(yellow_ship.image,yellow_ship.rect.topleft)
+    screen.blit(red_ship.health_text,(50,50))
+    screen.blit(yellow_ship.health_text,(550,50))
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False   
