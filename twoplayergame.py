@@ -5,6 +5,8 @@ pygame.font.init()
 
 screen = pygame.display.set_mode((800,600))
 comic_sans=pygame.font.SysFont('Comic Sans',40)
+comic_sans2=pygame.font.SysFont('Comic Sans',100)
+
 
 class Spaceship:
     def __init__(self, imageurl, angle, pos, color):
@@ -27,7 +29,7 @@ class Spaceship:
             if bullet.rect.colliderect(enemy_ship.rect):
                 self.bullets.remove(bullet)  
                 enemy_ship.health-=1
-                self.health_text= comic_sans.render(f'Health:{enemy_ship.health}',1,enemy_ship.color)
+                enemy_ship.health_text= comic_sans.render(f'Health:{enemy_ship.health}',1,enemy_ship.color)
 
     def movement(self):
         keys = pygame.key.get_pressed() 
@@ -68,9 +70,28 @@ yellow_ship= Spaceship('twoplayer_game\spaceship_yellow.png', -90,(700,300),'yel
 
 
 running = True
+game_over= False
+
+gameover_text= comic_sans2.render('Game over!',1,'Blue')
 
 while running:
     screen.blit(bg, (0,0))
+
+    if red_ship.health <=0 or yellow_ship.health <=0:
+        game_over=True
+    
+    if game_over:
+        screen.blit(gameover_text,(200,300))
+         
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False   
+                break
+        pygame.display.update()   
+        continue
+        
+
+
     screen.blit(red_ship.image,red_ship.rect.topleft)
     screen.blit(yellow_ship.image,yellow_ship.rect.topleft)
     screen.blit(red_ship.health_text,(50,50))
